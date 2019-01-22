@@ -8503,7 +8503,7 @@ exports.default = {
     attrs: function attrs() {
       return _extends({}, this.$attrs, {
         name: this.name,
-        id: this.id
+        id: undefined
       });
     },
     inputListeners: function inputListeners() {
