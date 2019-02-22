@@ -7577,6 +7577,11 @@ exports.default = new _MdComponent2.default({
   computed: {
     dialogClasses: function dialogClasses() {
       return {
+        'md-active': this.mdActive
+      };
+    },
+    dialogContainerClasses: function dialogContainerClasses() {
+      return {
         'md-dialog-fullscreen': this.mdFullscreen
       };
     }
@@ -26301,36 +26306,42 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "md-portal",
-    [
-      _c("transition", { attrs: { name: "md-dialog" } }, [
-        _vm.mdActive
-          ? _c(
-              "div",
-              _vm._g(
-                {
-                  staticClass: "md-dialog",
-                  class: [_vm.dialogClasses, _vm.$mdActiveTheme],
-                  on: {
-                    keydown: function($event) {
-                      if (
-                        !("button" in $event) &&
-                        _vm._k($event.keyCode, "esc", 27, $event.key, "Escape")
-                      ) {
-                        return null
-                      }
-                      return _vm.onEsc($event)
-                    }
-                  }
-                },
-                _vm.$listeners
-              ),
-              [
-                _c("md-focus-trap", [
-                  _c(
+  return _c("md-portal", [
+    _c(
+      "div",
+      { staticClass: "md-dialog", class: _vm.dialogClasses },
+      [
+        _c(
+          "md-focus-trap",
+          [
+            _c("transition", { attrs: { name: "md-dialog" } }, [
+              _vm.mdActive
+                ? _c(
                     "div",
-                    { staticClass: "md-dialog-container" },
+                    _vm._g(
+                      {
+                        staticClass: "md-dialog-container",
+                        class: [_vm.dialogContainerClasses, _vm.$mdActiveTheme],
+                        on: {
+                          keydown: function($event) {
+                            if (
+                              !("button" in $event) &&
+                              _vm._k(
+                                $event.keyCode,
+                                "esc",
+                                27,
+                                $event.key,
+                                "Escape"
+                              )
+                            ) {
+                              return null
+                            }
+                            return _vm.onEsc($event)
+                          }
+                        }
+                      },
+                      _vm.$listeners
+                    ),
                     [
                       _vm._t("default"),
                       _vm._v(" "),
@@ -26353,15 +26364,15 @@ var render = function() {
                     ],
                     2
                   )
-                ])
-              ],
-              1
-            )
-          : _vm._e()
-      ])
-    ],
-    1
-  )
+                : _vm._e()
+            ])
+          ],
+          1
+        )
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
