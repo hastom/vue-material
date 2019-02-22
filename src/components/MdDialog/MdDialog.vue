@@ -1,9 +1,9 @@
 <template>
   <md-portal>
     <transition name="md-dialog">
-      <div class="md-dialog" :class="[dialogClasses, $mdActiveTheme]" v-on="$listeners" @keydown.esc="onEsc" v-if="mdActive">
+      <div class="md-dialog" v-if="mdActive">
         <md-focus-trap>
-          <div class="md-dialog-container">
+          <div class="md-dialog-container" :class="[dialogClasses, $mdActiveTheme]" v-on="$listeners" @keydown.esc="onEsc">
             <slot />
 
             <keep-alive>
@@ -96,6 +96,19 @@
   @import "~components/MdElevation/mixins";
 
   .md-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 110;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .md-dialog-container {
     @include md-elevation(24);
     min-width: 280px;
     max-width: 80%;
@@ -103,16 +116,10 @@
     margin: auto;
     display: flex;
     flex-flow: column;
-    flex-direction: row;
     overflow: hidden;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    z-index: 110;
     border-radius: 2px;
     backface-visibility: hidden;
     pointer-events: auto;
-    transform: translate(-50%, -50%);
     transform-origin: center center;
     transition: opacity .15s $md-transition-stand-timing,
                 transform .2s $md-transition-stand-timing;
@@ -128,7 +135,7 @@
     }
   }
 
-.md-dialog-enter-active,
+  .md-dialog-enter-active,
   .md-dialog-leave-active {
     opacity: 0;
     transform: translate(-50%, -50%) scale(.9);
@@ -143,10 +150,6 @@
   }
 
   .md-dialog-container {
-    display: flex;
-    flex-flow: column;
-    flex: 1;
-
     .md-tabs {
       flex: 1;
     }
