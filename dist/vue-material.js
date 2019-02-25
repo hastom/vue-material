@@ -26306,17 +26306,17 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("md-portal", [
-    _c(
-      "div",
-      { staticClass: "md-dialog", class: _vm.dialogClasses },
-      [
-        _c(
-          "md-focus-trap",
-          [
-            _c("transition", { attrs: { name: "md-dialog" } }, [
-              _vm.mdActive
-                ? _c(
+  return _c(
+    "md-portal",
+    [
+      _c("transition", { attrs: { name: "md-dialog" } }, [
+        _vm.mdActive
+          ? _c(
+              "div",
+              { staticClass: "md-dialog" },
+              [
+                _c("md-focus-trap", [
+                  _c(
                     "div",
                     _vm._g(
                       {
@@ -26364,15 +26364,15 @@ var render = function() {
                     ],
                     2
                   )
-                : _vm._e()
-            ])
-          ],
-          1
-        )
-      ],
-      1
-    )
-  ])
+                ])
+              ],
+              1
+            )
+          : _vm._e()
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
