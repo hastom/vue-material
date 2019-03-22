@@ -262,7 +262,7 @@ var init = function init() {
     locale: {
       startYear: 1900,
       endYear: 2099,
-      dateFormat: 'YYYY-MM-DD',
+      dateFormat: 'yyyy-MM-dd',
       days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
       shortDays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
       shorterDays: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
@@ -6285,7 +6285,7 @@ exports.default = {
       return this.mdOverrideNative ? 'text' : 'date';
     },
     dateFormat: function dateFormat() {
-      return this.locale.dateFormat || 'YYYY-MM-DD';
+      return this.locale.dateFormat || 'yyyy-MM-dd';
     },
     modelType: function modelType() {
       if (this.isModelTypeString) {
@@ -6321,12 +6321,12 @@ exports.default = {
       return parsedDate && (0, _isValid2.default)(parsedDate) ? parsedDate : null;
     },
     pattern: function pattern() {
-      return this.dateFormat.replace(/YYYY|MM|DD/g, function (match) {
+      return this.dateFormat.replace(/yyyy|MM|dd/g, function (match) {
         switch (match) {
-          case 'YYYY':
+          case 'yyyy':
             return '[0-9]{4}';
           case 'MM':
-          case 'DD':
+          case 'dd':
             return '[0-9]{2}';
         }
       });
@@ -6374,7 +6374,7 @@ exports.default = {
     },
     dateFormat: function dateFormat() {
       if (this.localDate) {
-        this.inputDate = (0, _format2.default)(this.inputDate, this.dateFormat);
+        this.inputDate = (0, _format2.default)(this.localDate, this.dateFormat);
       }
     }
   },
@@ -15945,9 +15945,6 @@ var render = function() {
           on: {
             "update:mdActive": function($event) {
               _vm.showMenu = $event
-            },
-            "update:md-active": function($event) {
-              _vm.showMenu = $event
             }
           }
         },
@@ -16031,7 +16028,7 @@ var render = function() {
                           key: index,
                           on: {
                             click: function($event) {
-                              return _vm.selectItem(item, $event)
+                              _vm.selectItem(item, $event)
                             }
                           }
                         },
@@ -16045,8 +16042,7 @@ var render = function() {
                         ],
                         2
                       )
-                    }),
-                    1
+                    })
                   )
                 : _vm.hasScopedEmptySlot
                   ? _c("md-menu-item", [
@@ -16380,7 +16376,7 @@ var render = function() {
               style: ripple.waveStyles,
               on: {
                 "md-end": function($event) {
-                  return _vm.clearWave(ripple.uuid)
+                  _vm.clearWave(ripple.uuid)
                 }
               }
             })
@@ -17953,9 +17949,6 @@ var render = function() {
               on: {
                 "update:mdActive": function($event) {
                   _vm.rippleActive = $event
-                },
-                "update:md-active": function($event) {
-                  _vm.rippleActive = $event
                 }
               }
             },
@@ -18221,7 +18214,7 @@ var render = function() {
         attrs: { "md-src": _vm.mdSrc },
         on: {
           "md-loaded": function($event) {
-            return _vm.$emit("md-loaded")
+            _vm.$emit("md-loaded")
           }
         }
       })
@@ -18769,21 +18762,21 @@ var render = function() {
             on: {
               keydown: function($event) {
                 if (
-                  !$event.type.indexOf("key") &&
+                  !("button" in $event) &&
                   _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
                 ) {
                   return null
                 }
-                return _vm.$emit("md-click", chip, key)
+                _vm.$emit("md-click", chip, key)
               },
               "md-delete": function($event) {
                 $event.stopPropagation()
-                return _vm.removeChip(chip)
+                _vm.removeChip(chip)
               }
             },
             nativeOn: {
               click: function($event) {
-                return _vm.$emit("md-click", chip, key)
+                _vm.$emit("md-click", chip, key)
               }
             }
           },
@@ -18809,7 +18802,7 @@ var render = function() {
               keydown: [
                 function($event) {
                   if (
-                    !$event.type.indexOf("key") &&
+                    !("button" in $event) &&
                     _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
                   ) {
                     return null
@@ -18817,7 +18810,7 @@ var render = function() {
                   return _vm.insertChip($event)
                 },
                 function($event) {
-                  if (!$event.type.indexOf("key") && $event.keyCode !== 8) {
+                  if (!("button" in $event) && $event.keyCode !== 8) {
                     return null
                   }
                   return _vm.handleBackRemove($event)
@@ -18955,7 +18948,7 @@ var render = function() {
                     attrs: { tabindex: "-1" },
                     on: {
                       click: function($event) {
-                        return _vm.$emit("md-delete", $event)
+                        _vm.$emit("md-delete", $event)
                       }
                     }
                   },
@@ -26335,11 +26328,14 @@ var render = function() {
                         on: {
                           keydown: function($event) {
                             if (
-                              !$event.type.indexOf("key") &&
-                              _vm._k($event.keyCode, "esc", 27, $event.key, [
-                                "Esc",
+                              !("button" in $event) &&
+                              _vm._k(
+                                $event.keyCode,
+                                "esc",
+                                27,
+                                $event.key,
                                 "Escape"
-                              ])
+                              )
                             ) {
                               return null
                             }
@@ -26623,9 +26619,7 @@ var render = function() {
                                                     },
                                                     on: {
                                                       click: function($event) {
-                                                        return _vm.selectDate(
-                                                          day
-                                                        )
+                                                        _vm.selectDate(day)
                                                       }
                                                     }
                                                   },
@@ -26640,8 +26634,7 @@ var render = function() {
                                     ],
                                     1
                                   )
-                                }),
-                                0
+                                })
                               )
                             : _vm.currentView === "month"
                               ? _c(
@@ -26681,7 +26674,7 @@ var render = function() {
                                           },
                                           on: {
                                             click: function($event) {
-                                              return _vm.switchMonth(index)
+                                              _vm.switchMonth(index)
                                             }
                                           }
                                         },
@@ -26716,14 +26709,13 @@ var render = function() {
                                               },
                                               on: {
                                                 click: function($event) {
-                                                  return _vm.switchYear(year)
+                                                  _vm.switchYear(year)
                                                 }
                                               }
                                             },
                                             [_vm._v(_vm._s(year))]
                                           )
-                                        }),
-                                        0
+                                        })
                                       )
                                     ],
                                     1
@@ -26970,9 +26962,6 @@ var render = function() {
                 },
                 on: {
                   "update:mdDate": function($event) {
-                    _vm.localDate = $event
-                  },
-                  "update:md-date": function($event) {
                     _vm.localDate = $event
                   },
                   "md-closed": _vm.toggleDialog
@@ -27437,7 +27426,7 @@ var render = function() {
               staticClass: "md-primary",
               on: {
                 click: function($event) {
-                  return _vm.$emit("update:mdActive", false)
+                  _vm.$emit("update:mdActive", false)
                 }
               }
             },
@@ -27740,7 +27729,7 @@ var render = function() {
                 nativeOn: {
                   keydown: function($event) {
                     if (
-                      !$event.type.indexOf("key") &&
+                      !("button" in $event) &&
                       _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
                     ) {
                       return null
@@ -28596,9 +28585,6 @@ var render = function() {
         "update:mdActive": function($event) {
           _vm.showSelect = $event
         },
-        "update:md-active": function($event) {
-          _vm.showSelect = $event
-        },
         "md-closed": _vm.onClose
       }
     },
@@ -28629,7 +28615,7 @@ var render = function() {
                 keydown: [
                   function($event) {
                     if (
-                      !$event.type.indexOf("key") &&
+                      !("button" in $event) &&
                       _vm._k($event.keyCode, "down", 40, $event.key, [
                         "Down",
                         "ArrowDown"
@@ -28641,7 +28627,7 @@ var render = function() {
                   },
                   function($event) {
                     if (
-                      !$event.type.indexOf("key") &&
+                      !("button" in $event) &&
                       _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
                     ) {
                       return null
@@ -28650,11 +28636,8 @@ var render = function() {
                   },
                   function($event) {
                     if (
-                      !$event.type.indexOf("key") &&
-                      _vm._k($event.keyCode, "space", 32, $event.key, [
-                        " ",
-                        "Spacebar"
-                      ])
+                      !("button" in $event) &&
+                      _vm._k($event.keyCode, "space", 32, $event.key, " ")
                     ) {
                       return null
                     }
@@ -31010,9 +30993,6 @@ var render = function() {
               on: {
                 "update:mdActive": function($event) {
                   _vm.rippleActive = $event
-                },
-                "update:md-active": function($event) {
-                  _vm.rippleActive = $event
                 }
               }
             },
@@ -32215,8 +32195,7 @@ var render = function() {
                 key: index,
                 attrs: { index: index }
               })
-            }),
-            1
+            })
           )
         : _vm._e(),
       _vm._v(" "),
@@ -32610,9 +32589,6 @@ var render = function() {
                   },
                   on: {
                     "update:mdActive": function($event) {
-                      _vm.rippleActive = $event
-                    },
-                    "update:md-active": function($event) {
                       _vm.rippleActive = $event
                     }
                   }
@@ -33635,8 +33611,7 @@ var render = function() {
                           [_vm._t("md-table-row", null, { item: item })],
                           2
                         )
-                      }),
-                      1
+                      })
                     )
                   : _vm.$scopedSlots["md-table-empty-state"]
                     ? _c("tbody", [
@@ -34104,8 +34079,7 @@ var render = function() {
                       { key: amount, attrs: { value: amount } },
                       [_vm._v(_vm._s(amount))]
                     )
-                  }),
-                  1
+                  })
                 )
               ],
               1
@@ -34132,7 +34106,7 @@ var render = function() {
           attrs: { disabled: _vm.mdPage === 1 },
           on: {
             click: function($event) {
-              return _vm.goToPrevious()
+              _vm.goToPrevious()
             }
           }
         },
@@ -34146,7 +34120,7 @@ var render = function() {
           staticClass: "md-icon-button md-table-pagination-next",
           on: {
             click: function($event) {
-              return _vm.goToNext()
+              _vm.goToNext()
             }
           }
         },
@@ -34305,7 +34279,7 @@ var render = function() {
                     attrs: { disabled: disabled },
                     nativeOn: {
                       click: function($event) {
-                        return _vm.setActiveTab(index)
+                        _vm.setActiveTab(index)
                       }
                     }
                   },
