@@ -6247,6 +6247,10 @@ exports.default = {
   props: {
     value: [String, Number, Date],
     mdDisabledDates: [Array, Function],
+    mdDisabled: {
+      type: Boolean,
+      default: false
+    },
     mdOpenOnFocus: {
       type: Boolean,
       default: true
@@ -6380,6 +6384,9 @@ exports.default = {
   },
   methods: {
     toggleDialog: function toggleDialog() {
+      if (this.mdDisabled) {
+        return;
+      }
       if (!_isFirefox2.default || this.mdOverrideNative) {
         this.showDialog = !this.showDialog;
         if (this.showDialog) {
@@ -26933,7 +26940,11 @@ var render = function() {
       _vm._v(" "),
       _c("md-input", {
         ref: "input",
-        attrs: { type: _vm.type, pattern: _vm.pattern },
+        attrs: {
+          disabled: _vm.mdDisabled,
+          type: _vm.type,
+          pattern: _vm.pattern
+        },
         nativeOn: {
           focus: function($event) {
             return _vm.onFocus($event)
