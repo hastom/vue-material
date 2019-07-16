@@ -8968,6 +8968,11 @@ exports.default = new _MdComponent2.default({
       return this.locale.shortMonths[(0, _getMonth2.default)(this.currentDate)];
     }
   },
+  watch: {
+    mdDate: function mdDate() {
+      this.resetDate();
+    }
+  },
   methods: {
     setView: function setView(view) {
       if (this.currentView !== view) {
@@ -9047,7 +9052,7 @@ exports.default = new _MdComponent2.default({
       this.$emit('update:mdDate', new Date(this.currentDate.getTime()));
     },
     resetDate: function resetDate() {
-      this.currentDate = this.mdCurrentDate || new Date();
+      this.currentDate = this.mdDate || this.mdCurrentDate || new Date();
       this.setView('day');
     }
   },
