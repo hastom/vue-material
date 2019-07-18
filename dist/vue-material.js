@@ -10618,7 +10618,7 @@ exports.default = new _MdComponent2.default({
         this.MdMenu.bodyClickObserver = new _MdObserveEvent2.default(document.body, 'click', function ($event) {
           $event.stopPropagation();
 
-          if (!_this2.isMenuContentEl($event) || _this2.MdMenu.closeOnClick && _this2.isBackdropExpectMenu($event)) {
+          if (!(_this2.isMenuContentEl($event) || _this2.isMenu($event)) || _this2.MdMenu.closeOnClick && _this2.isBackdropExpectMenu($event)) {
             _this2.MdMenu.active = false;
             _this2.MdMenu.bodyClickObserver.destroy();
             _this2.MdMenu.windowResizeObserver.destroy();
